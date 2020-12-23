@@ -44,11 +44,14 @@ class AliOssServiceProvider extends ServiceProvider
             $debug     = empty($config['debug']) ? false : $config['debug'];
 
             $endPoint  = $config['endpoint']; // 默认作为外部节点
-            $epInternal= $isCname?$cdnDomain:(empty($config['endpoint_internal']) ? $endPoint : $config['endpoint_internal']); // 内部节点
+//            $epInternal= $isCname?$cdnDomain:(empty($config['endpoint_internal']) ? $endPoint : $config['endpoint_internal']); // 内部节点
+            $epInternal= (empty($config['endpoint_internal']) ? $endPoint : $config['endpoint_internal']); // 内部节点
 
             if($debug) Log::debug('OSS config:', $config);
 
-            $client  = new OssClient($accessId, $accessKey, $epInternal, $isCname, $securityToken);
+            //修复上传使用cdn自定义域名报错的问题
+            //解决方案:上传使用阿里云节点,只有显示使用自定义域名
+            $client  = new OssClient($accessId, $accessKey, $epInternal, false, $securityToken);
             $adapter = new AliOssAdapter($client, $bucket, $endPoint, $ssl, $isCname, $debug, $cdnDomain);
 
             //Log::debug($client);
