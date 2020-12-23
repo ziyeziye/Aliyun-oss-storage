@@ -571,7 +571,7 @@ class AliOssAdapter extends AbstractAdapter
      */
     public function getUrl( $path )
     {
-        if (!$this->has($path)) throw new FileNotFoundException($path.' not found');
+        if ($this->debug&&!$this->has($path)) throw new FileNotFoundException($path.' not found');
         return ( $this->ssl ? 'https://' : 'http://' ) . ( $this->isCname ? ( $this->cdnDomain == '' ? $this->endPoint : $this->cdnDomain ) : $this->bucket . '.' . $this->endPoint ) . '/' . ltrim($path, '/');
     }
 
@@ -585,7 +585,7 @@ class AliOssAdapter extends AbstractAdapter
      * @throws OssException
      */
     public function getTemporaryUrl($path, $expire = 600, $options) {
-        if (!$this->has($path))
+        if ($this->debug&&!$this->has($path))
             throw new FileNotFoundException($path.' not found');
         $method = OssClient::OSS_HTTP_GET;
         if (Arr::has($options, OssClient::OSS_METHOD)) {
