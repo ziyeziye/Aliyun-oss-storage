@@ -26,12 +26,12 @@ Aliyun oss filesystem storage adapter for laravel 5. You can use Aliyun OSS just
 ## Installation 
 In order to install AliOSS-storage, just add
 
-    "summergeorge/ali-oss-storage": "^2.1"
+    "ziyeziye/ali-oss-storage": "dev-master"
 
 to your composer.json. Then run `composer install` or `composer update`.  
 Or you can simply run below command to install:
 
-    "composer require summergeorge/ali-oss-storage:^2.1"
+    "composer require ziyeziye/ali-oss-storage:dev-master"
     
 Then in your `config/app.php` add this line to providers array:
 ```php
@@ -52,7 +52,7 @@ Add the following in app/filesystems.php:
             'cdnDomain'     => '<CDN domain, cdn域名>', // 如果isCName为true, getUrl会判断cdnDomain是否设定来决定返回的url，如果cdnDomain未设置，则使用endpoint来生成url，否则使用cdn
             'ssl'           => <true|false> // true to use 'https://' and false to use 'http://'. default is false,
             'isCName'       => <true|false> // 是否使用自定义域名,true: 则Storage.url()会使用自定义的cdn或域名生成文件url， false: 则使用外部节点生成url
-            'debug'         => <true|false>
+            'debug'         => <true|false> //false不判断文件是否存在
     ],
     ...
 ]
